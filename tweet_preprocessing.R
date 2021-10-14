@@ -23,7 +23,7 @@ flagged2 <- inner_join(flagged2,timezones) %>%
 
 # find the dupes with an inner join on district and created_at
 duplicated_tweets <- inner_join(flagged1,flagged2, by = c("district","created_at")) %>%
-  select(district, created_at, content, text) # I looked at these to check test matched
+  select(district, created_at, content, text) # I looked at these to check text matched
 
 # remove these dupes from flagler2 with an anti join, then rename content to text
 flagged2 <- anti_join(flagged2,duplicated_tweets, by = c("district","created_at")) %>%
