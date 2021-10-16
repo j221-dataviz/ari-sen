@@ -58,8 +58,16 @@ flagged <- bind_rows(flagged1,flagged2) %>%
   distinct(district,screen_name,as.character(created_at),.keep_all = TRUE) %>%
   select(1:4)
 
-# write to CSV
+# write flagged tweets to CSV
 write_csv(flagged, "data/CSVs/Created/flagged.csv")
+
+# flagged users with the UTC timestamp of their first and last flagged tweets
+flagged_users <- flagged %>%
+  group_by(screen_name) %>%
+  summarize(first = min(created_at), last = max(created_at))
+
+# write flagged users to CSV
+write_csv(flagged_users, "data/CSVs/Created/flagged_users.csv")
 
 
   
